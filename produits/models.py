@@ -42,3 +42,4 @@ class Commande(models.Model):
 
     def __str__(self) -> str:
         return f"{self.produit}, {self.user}, {self.nbr}, {self.prixTotal}"
+    
