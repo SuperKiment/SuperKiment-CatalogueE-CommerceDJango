@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
-    text = "<h1>Index/20</h1><p>Benjoueuuuuur</p>"
-    return HttpResponse(text)
+    return render(request, 'index.html.twig', {})
     
 # Create your views here.
 def hello(request):
