@@ -21,7 +21,7 @@ class Produit(models.Model):
     reference = models.CharField(max_length=20)
     pointure = models.FloatField(default=0)
     photo = models.CharField(max_length=500)
-    categorie = models.ForeignKey(Categorie)
+    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return f"{self.libelle}, {self.prix}, {self.reference}"
