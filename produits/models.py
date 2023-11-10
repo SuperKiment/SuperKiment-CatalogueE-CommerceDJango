@@ -1,4 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User 
+
+def get_user_name(self):
+    if self.first_name or self.last_name:
+        return self.first_name + " " + self.last_name
+    return self.username
+
+User.add_to_class("get_user_name",get_user_name)
 
 # Create your models here.
 class Produit(models.Model):
@@ -10,3 +18,8 @@ class Produit(models.Model):
 
     def __str__(self) -> str:
         return f"{self.libelle}, {self.prix}, {self.reference}"
+
+class Panier(models.Model):
+    nbr = models.IntegerField(default=1)
+    produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
