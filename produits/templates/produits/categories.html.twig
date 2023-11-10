@@ -8,7 +8,7 @@
   <ul>
     {% for categorie in categories %}
       <p>
-        <a href="{% url 'categories' categorie.libelle %}">{{categorie.libelle}}</a>
+        Catégorie : <a href="{% url 'categories' categorie.libelle %}">{{categorie.libelle}}</a>
     </p>
     {% endfor %}
   </ul>

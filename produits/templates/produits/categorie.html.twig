@@ -4,10 +4,10 @@
 {% endblock %}
 {% block body %}
   <h1>Bienvenue dans notre boutique !</h1>
-  <h2>Voici la catégorie {{categorie.libelle}} :</h2>
-  <ul>
-      <p>
-        {{categorie.libelle}}
-    </p>
-  </ul>
+  <h2>Voici les produits de la catégorie {{categorie.libelle}} :</h2>
+  
+    {% for produit in produits %}
+      <p>{{produit.libelle}} </p>
+    {% endfor %}
+
 {% endblock %}

@@ -23,6 +23,10 @@ def categories(request, libelle = None):
             'categories': Categorie.objects.all()
         })
     else :
+        categorie = Categorie.objects.get(libelle=libelle)
+        produits = Produit.objects.filter(categorie=categorie)
+        print(produits)
         return render(request, 'produits/categorie.html.twig', {
-            'categorie': Categorie.objects.get(libelle=libelle)
+            'categorie': categorie,
+            'produits' : produits
         })
