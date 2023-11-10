@@ -9,7 +9,7 @@ def index(request):
     context = {'produits': produits}
     return render(request, 'produits/index.html.twig', context)
     
-def produit_individuel(request):
+def produit_individuel(request, id_produit):
     text = "<h1>Hello world</h1><p>Benjoueuuuuur</p>"
     return HttpResponse(text)
 
