@@ -14,7 +14,10 @@ def index(request):
 def produit_individuel(request, id_produit):
     produit = Produit.objects.get(id=id_produit)
     if request.method == "POST": # Si on a commandé le produit
-        article_deja_dans_panier = Panier.objects.get(produit=produit)
+        try :
+            article_deja_dans_panier = Panier.objects.get(produit=produit)
+        except Panier.DoesNotExist:
+            article_deja_dans_panier = None
         quantite_produit = request.POST.get('quantite')
         if article_deja_dans_panier:
             article_deja_dans_panier.nbr += int(quantite_produit)
@@ -35,7 +38,7 @@ def panier(request):
     panier_user = Panier.objects.filter(user=request.user)
     context = {'panier': panier_user}
     return render(request, 'produits/panier.html.twig', context)
-
+    
 @login_required(login_url='/accounts/login/')
 def categories(request, libelle = None):
     if (libelle == None):
