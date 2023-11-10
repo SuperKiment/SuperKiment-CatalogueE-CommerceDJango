@@ -1,6 +1,13 @@
 {% extends "produits/layout.html.twig" %}
-{% block title %}{% endblock %}
+{% block stylesheets %}
+    <link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
 {% block body %}
-
-<h1>coucouu</h1>
+<h1> Bienvenue dans notre boutique ! </h1>
+<h2> Voici la liste de nos produits : </h2>
+<ul>
+{% for produit in produits %}
+    <a href="{% url 'produit_individuel' produit.name %}"><li>{{ produit.libelle }}</li></a>
+{% endfor %}
+</ul>
 {% endblock %}
