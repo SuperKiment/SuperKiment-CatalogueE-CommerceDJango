@@ -18,3 +18,8 @@ class Produit(models.Model):
 
     def __str__(self) -> str:
         return f"{self.libelle}, {self.prix}, {self.reference}"
+
+class Panier(models.Model):
+    nbr = models.IntegerField(default=1)
+    produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
