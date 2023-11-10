@@ -1,0 +1,32 @@
+{% extends "produits/layout.html.twig" %}
+{% block stylesheets %}
+    <link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container pt-5">
+    <div class="card mb-5">
+    <div class="row align-items-start">
+      <h1 class="card-header text-center">{{ produit.libelle }}</h1>
+      <div class="col">
+          <img style="width:40rem; height:40rem;" class="img-fluid rounded p-5" src="{{ produit.photo }}">
+      </div>
+      <div class="col">
+          <ul class="list-group list-group-flush"></ul>
+          <div class="card-body">
+            <div class="text-end">
+                <h2 class="card-title fs-1">Prix : {{ produit.prix }}€</h5>
+                <p class="card-text fs-1">Catégorie : {{ produit.categorie }}</p>
+                <p class="card-text fs-1">Pointure : {{ produit.pointure }}</p>
+                <p class="card-text fs-1">Référence : {{ produit.reference }}</p>
+                <div class="input-group w-auto justify-content-end align-items-center">
+                  <p class="card-text fs-1">Quantité  :
+                  <input type="number" step="1" max="10" value="1" name="quantite" class="quantity-field border-0 text-center w-25 bg-dark text-light rounded">
+                  </p>
+                  <button type="submit" class="btn btn-primary fs-1 rounded">Commander</button>
+                </div>
+            </div>
+          </div>
+     </div>
+  </div>
+</div>
+{% endblock %}

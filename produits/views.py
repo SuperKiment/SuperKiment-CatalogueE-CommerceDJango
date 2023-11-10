@@ -10,8 +10,9 @@ def index(request):
     return render(request, 'produits/index.html.twig', context)
     
 def produit_individuel(request, id_produit):
-    text = "<h1>Hello world</h1><p>Benjoueuuuuur</p>"
-    return HttpResponse(text)
+    produit = Produit.objects.get(id=id_produit)
+    context = {'produit': produit}
+    return render(request, 'produits/produit_individuel.html.twig', context)
 
 def panier(request, number):
     text = "lez goooo %d"%number
