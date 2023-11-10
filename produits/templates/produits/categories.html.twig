@@ -1,0 +1,15 @@
+{% extends 'produits/layout.html.twig' %}
+{% block stylesheets %}
+  <link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+  <h1>Bienvenue dans notre boutique !</h1>
+  <h2>Voici nos catégories :</h2>
+  <ul>
+    {% for categorie in categories %}
+      <p>
+        Catégorie : <a href="{% url 'categories' categorie.libelle %}">{{categorie.libelle}}</a>
+    </p>
+    {% endfor %}
+  </ul>
+{% endblock %}

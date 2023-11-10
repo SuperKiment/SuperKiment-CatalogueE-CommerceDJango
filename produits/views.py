@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Produit
+from .models import Produit, Categorie
 
 
 def index(request):
@@ -17,3 +17,16 @@ def panier(request, number):
     text = "lez goooo %d"%number
     return HttpResponse(text)
 
+def categories(request, libelle = None):
+    if (libelle == None):
+        return render(request, 'produits/categories.html.twig', {
+            'categories': Categorie.objects.all()
+        })
+    else :
+        categorie = Categorie.objects.get(libelle=libelle)
+        produits = Produit.objects.filter(categorie=categorie)
+        print(produits)
+        return render(request, 'produits/categorie.html.twig', {
+            'categorie': categorie,
+            'produits' : produits
+        })
