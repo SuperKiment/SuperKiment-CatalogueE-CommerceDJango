@@ -1,54 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue !{% endblock %}</title>
-        <link rel="icon" href="https://www.freepngimg.com/thumb/shoes/25715-1-vector-shoes.png">
-        {% block stylesheets %}
-        <link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Bienvenue !
+			{% endblock %}
+		</title>
+		<link rel="icon" href="https://www.freepngimg.com/thumb/shoes/25715-1-vector-shoes.png">
+		{% block stylesheets %}
+			<link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+		{% endblock %}
 
-        {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        {% endblock %}
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="https://www.freepngimg.com/thumb/shoes/25715-1-vector-shoes.png"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'index' %}">Accueil
-                      <span class="visually-hidden">(current)</span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Produits</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'categories' %}">Catégories</a>
-                  </li>
-                  <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                  </li >
-                  <li class="nav-item"><p class="nav-link">{{ user.username }}</p></li>
-                </ul>
-                  <a class="btn btn-secondary my-2 my-sm-0" href="{% url 'panier' %}">
-                    Panier
-                    <img src="https://pngimg.com/uploads/shopping_cart/shopping_cart_PNG37.png" alt="panier" width="30" height="30" class="d-inline-block align-text-top">
-                  </a>
-              </div>
-            </div>
-          </nav>
+		{% block javascripts %}
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="https://www.freepngimg.com/thumb/shoes/25715-1-vector-shoes.png"></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarColor01">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="{% url 'index' %}">Accueil
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'index' %}">Produits</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'categories' %}">Catégories</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+						</li>
+						<li class="nav-item">
+							<p class="nav-link">{{ user.username }}</p>
+						</li>
+					</ul>
 
-          <div class="container">
-        {% block body %}
-        {% endblock %}
-      </div>
-    </body>
-</html>
+					<a class="btn btn-secondary my-2 my-sm-0" href="{% url 'panier' %}" style="margin-right: 50px;">
+
+						Panier
+
+						<img src="https://pngimg.com/uploads/shopping_cart/shopping_cart_PNG37.png" alt="panier" width="30" height="30" class="d-inline-block align-text-top">
+						<span class="position-absolute top-50 start-70 badge rounded-pill bg-danger">
+							{{ badgepanier }}
+							<span class="visually-hidden">unread messages</span>
+						</a>
+
+					</div>
+				</div>
+			</nav>
+
+			<div class="container"> {% block body %}{% endblock %}
+				</div>
+			</body>
+		</body>
+	</html>
