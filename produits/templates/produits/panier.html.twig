@@ -3,5 +3,70 @@
     <link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet">
 {% endblock %}
 {% block body %}
-<h1>Il faut compléter cette page</h1>
+<h1 class="text-center pb-2 pt-2">Mon panier</h1>
+{% if message %}
+<h2 class="text-center pb-2 pt-2"> {{ message }}</h2>
+{% endif %}
+{% if panier %}
+    {% for entree_panier in panier %}
+    <div class="container pt-2">
+        <div class="card mb-2">
+        <div class="row align-items-start">
+        <div class="card-header">
+            <h1 class="text-center">
+                {{ entree_panier.produit.libelle }}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="supprimer">
+                    <input type="hidden" name="entree_panier_supprimer" value="{{ entree_panier.id }}">
+                    <button type="submit" class="float-end">X</button>
+                </form>
+            </h1> 
+        </div>
+        <div class="col">
+            <img style="width:15rem; height:15rem;" class="img-fluid rounded p-2" src="{{ entree_panier.produit.photo }}">
+        </div>
+        <div class="col">
+            <ul class="list-group list-group-flush"></ul>
+            <div class="card-body">
+                <div class="text-end">
+                    <h2 class="card-title fs-4">Prix : {{ entree_panier.produit.prix }}€</h5>
+                    <p class="card-text fs-4">Catégorie : {{ entree_panier.produit.categorie }}</p>
+                    <p class="card-text fs-4">Pointure : {{ entree_panier.produit.pointure }}</p>
+                    <p class="card-text fs-4">Référence : {{ entree_panier.produit.reference }}</p>
+                    
+                    <form method="post" id="changer_quantite_{{ entree_panier.produit.id }}">
+                    {% csrf_token %}
+                    <div class="input-group w-auto justify-content-end align-items-center">
+                    <p class="card-text fs-4">Quantité : 
+                    <input type="number" step="1" max="10" value="{{ entree_panier.nbr }}" name="quantite" class="quantity-field border-0 text-center w-25 bg-dark text-light rounded">
+                    </p>
+                    <input type="hidden" name="action" value="editer">
+                    <input type="hidden" name="entree_panier_editer" value="{{ entree_panier.id }}">
+                    <button type="submit" class="btn btn-primary fs-4 rounded">Éditer la Quantité</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+            <div class="text-center mb-5">
+                <input type="hidden" name="action" value="commander">
+                <button type="submit" class="btn btn-primary fs-1 rounded">Commander</button>
+            </div>
+    </form>
+{% else %}
+    <div class="container">
+        <div class="card mb-2">
+            <div class="card-header">
+                <h1 class="text-center">Votre panier est vide</h1>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

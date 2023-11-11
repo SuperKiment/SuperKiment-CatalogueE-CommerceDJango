@@ -38,7 +38,7 @@ class Commande(models.Model):
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     prixTotal = models.FloatField(default=0)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"{self.produit}, {self.user}, {self.nbr}, {self.prixTotal}"

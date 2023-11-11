@@ -1,8 +1,7 @@
-
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Produit, Categorie, Panier
+from .models import Produit, Categorie, Panier, Commande
 
 @login_required(login_url='/accounts/login/')
 def index(request):
@@ -14,9 +13,9 @@ def index(request):
 def produit_individuel(request, id_produit):
     produit = Produit.objects.get(id=id_produit)
     if request.method == "POST": # Si on a commandé le produit
-        try :
+        try : # On vérifie si le produit est déjà dans le panier
             article_deja_dans_panier = Panier.objects.get(produit=produit)
-        except Panier.DoesNotExist:
+        except Panier.DoesNotExist: 
             article_deja_dans_panier = None
         quantite_produit = request.POST.get('quantite')
         if article_deja_dans_panier:
@@ -35,8 +34,41 @@ def produit_individuel(request, id_produit):
 
 @login_required(login_url='/accounts/login/')
 def panier(request):
-    panier_user = Panier.objects.filter(user=request.user)
-    context = {'panier': panier_user}
+    if request.method == "POST": # Si on a envoyé un formulaire
+        action = request.POST.get('action')
+        match(action) :
+            case 'supprimer':
+                entree_panier_id = request.POST.get('entree_panier_supprimer')
+                entree_panier = Panier.objects.get(id=entree_panier_id)
+                entree_panier.delete()
+            case 'editer':
+                entree_panier_id = request.POST.get('entree_panier_editer')
+                entree_panier_nv_quantite = request.POST.get('quantite')
+                entree_panier = Panier.objects.get(id=entree_panier_id)
+                entree_panier.nbr = entree_panier_nv_quantite
+                entree_panier.save()
+            case 'commander':
+                panier_user = Panier.objects.filter(user=request.user)
+                for panier in panier_user:
+                    nouvelle_commande = Commande()
+                    nouvelle_commande.nbr = panier.nbr
+                    nouvelle_commande.produit = panier.produit
+                    nouvelle_commande.user = panier.user
+                    nouvelle_commande.prixTotal = panier.produit.prix * panier.nbr
+                    nouvelle_commande.save()
+                    print(panier)
+                    panier.delete()
+                message = "Votre commande a bien été prise en compte !"
+                context = {'message': message}
+                return render(request, 'produits/panier.html.twig', context)
+                
+    try :
+        panier_user = Panier.objects.filter(user=request.user)
+        context = {'panier': panier_user}
+    except Panier.DoesNotExist:
+        panier_user = None
+        context = {}
+
     return render(request, 'produits/panier.html.twig', context)
     
 @login_required(login_url='/accounts/login/')
