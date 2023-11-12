@@ -6,7 +6,10 @@ from .models import Produit, Categorie, Panier, Commande
 @login_required(login_url='/accounts/login/')
 def index(request):
     produits = Produit.objects.all()
-    context = {'produits': produits}
+    context = {
+        'produits': produits,
+        'badgepanier' : getNombrePanier()
+    }
     return render(request, 'produits/index.html.twig', context)
 
 @login_required(login_url='/accounts/login/')    
@@ -29,7 +32,7 @@ def produit_individuel(request, id_produit):
         nouvel_article.save()
         return redirect(panier)
 
-    context = {'produit': produit}
+    context = {'produit': produit, 'badgepanier' : getNombrePanier()}
     return render(request, 'produits/produit_individuel.html.twig', context)
 
 @login_required(login_url='/accounts/login/')
@@ -59,15 +62,15 @@ def panier(request):
                     print(panier)
                     panier.delete()
                 message = "Votre commande a bien été prise en compte !"
-                context = {'message': message}
+                context = {'message': message,'badgepanier' : getNombrePanier()}
                 return render(request, 'produits/panier.html.twig', context)
                 
     try :
         panier_user = Panier.objects.filter(user=request.user)
-        context = {'panier': panier_user}
+        context = {'panier': panier_user,'badgepanier' : getNombrePanier()}
     except Panier.DoesNotExist:
         panier_user = None
-        context = {}
+        context = {'badgepanier' : getNombrePanier()}
 
     return render(request, 'produits/panier.html.twig', context)
     
@@ -75,7 +78,8 @@ def panier(request):
 def categories(request, libelle = None):
     if (libelle == None):
         return render(request, 'produits/categories.html.twig', {
-            'categories': Categorie.objects.all()
+            'categories': Categorie.objects.all(),
+            'badgepanier' : getNombrePanier()
         })
     else :
         categorie = Categorie.objects.get(libelle=libelle)
@@ -83,5 +87,10 @@ def categories(request, libelle = None):
         print(produits)
         return render(request, 'produits/categorie.html.twig', {
             'categorie': categorie,
-            'produits' : produits
+            'produits' : produits,
+            'badgepanier' : getNombrePanier()
         })
+    
+
+def getNombrePanier():
+    return len(Panier.objects.all())
