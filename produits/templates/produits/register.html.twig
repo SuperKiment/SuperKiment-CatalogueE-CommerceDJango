@@ -1,0 +1,18 @@
+{% extends "produits/layout.html.twig" %}
+
+{% block body %}
+
+
+	<!--Register-->
+	<div class="container py-5">
+		<h1>S'Inscrire</h1>
+		<form method="POST">
+			{% csrf_token %}
+			{{ register_form.as_p }}
+			<button class="btn btn-primary" type="submit">S'Inscrire</button>
+		</form>
+		<p class="text-center">Déjà un compte ? 
+			<a href="{% url 'login' %}">Se Connecter</a></p>
+	</div>
+
+{% endblock %}

@@ -10,4 +10,5 @@ urlpatterns = [
     path('panier', views.panier, name='panier'),
     path('categories', views.categories, name='categories'),
     path('categories/<str:libelle>', views.categories, name='categories'),
+    path("register", views.register_request, name="register")
 ]
