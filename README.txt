@@ -12,7 +12,7 @@ HOW TO CLONE THE PROJECT AND TEST IT :
         - pip install -r requirements.txt
     
 5. Insert data into the database by using an admin command :
-        - python manage.py peuplerdatabase.py
+        - python manage.py peuplerdatabase
 
 6. Start the webserver :
         - python manage.py runserver

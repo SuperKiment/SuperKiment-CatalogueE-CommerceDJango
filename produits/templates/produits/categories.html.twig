@@ -3,8 +3,8 @@
 	<link href="https://bootswatch.com/5/journal/bootstrap.min.css" rel="stylesheet"/>
 {% endblock %}
 {% block body %}
-	<h1>Bienvenue dans notre boutique !</h1>
-	<h2>Voici nos catégories :</h2>
+	<h1 class="text-center">Bienvenue dans notre boutique !</h1>
+	<h2 class="text-center">Voici nos catégories :</h2>
 	<ul class="list-group m-5">
 		{% for categorie in categories %}
 			<a href="{% url 'categories' categorie.libelle %}">
